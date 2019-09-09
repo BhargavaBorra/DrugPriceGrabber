@@ -1,0 +1,79 @@
+<p>
+    Home
+</p>
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]='searchForm' (submit)="searchDetail($event)">
+                <div class="row" style="padding-bottom: 15px;">
+                    <div class="col-md-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" formControlName="isOnlyInsuranceCovered" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                      Only Insurance Covered pharmacy
+                    </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" formControlName="txtPincode" placeholder="Pincode">
+                        <div *ngIf="searchForm.get('txtPincode').invalid && (searchForm.get('txtPincode').dirty || searchForm.get('txtPincode').touched)"
+                         class="alert alert-danger">
+
+                            <div *ngIf="searchForm.get('txtPincode').errors.required">
+                                Pincode is required.
+                            </div>
+                            <div *ngIf="searchForm.get('txtPincode').errors.minlength">
+                                Pincode must be at least 6 characters long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" formControlName="txtSearch" placeholder="Search Drug name">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">search</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <div class="row" *ngIf="pharmacys" style="padding-top:10px;padding-bottom: 10px; ">
+        <div class="col-md-12">
+            <div class="card" *ngFor="let pharmacy of pharmacys">
+                <div class="card-header">
+                    {{pharmacy.PharmaName}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{pharmacy.DrugName}}</h5>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="card-text">Price : {{pharmacy.Price}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{pharmacy.pharmaUrl}}" class="btn btn-primary" target="_blank">Go Store</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button href="" class="btn btn-primary" >Send email</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="isNoRecord">
+        <div class="col-md-12">
+            <div class="alert alert-info text-center">
+                No Record to Display !:)
+            </div>
+        </div>
+    </div>
+
+</div>
